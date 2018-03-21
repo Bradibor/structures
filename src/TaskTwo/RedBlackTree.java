@@ -13,6 +13,7 @@ public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
         x.setLeft(h);
         x.setRed(ColorNode.isRed(h));
         h.setRed(true);
+        if(ColorNode.isRed((ColorNode)root) ) throw new IllegalStateException("Root RED");
         return x;
     }
 
@@ -23,6 +24,7 @@ public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
         x.setRight(h);
         x.setRed(ColorNode.isRed(h));
         h.setRed(true);
+        if(ColorNode.isRed((ColorNode)root) ) throw new IllegalStateException("Root RED");
         return x;
     }
 
@@ -33,6 +35,7 @@ public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
         h.setRed(true);
         h.getRight().setRed(false);
         h.getLeft().setRed(false);
+        if(ColorNode.isRed((ColorNode)root) ) throw new IllegalStateException("Root RED");
     }
 
     @Override
@@ -49,7 +52,6 @@ public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
         else if (cmp > 0) h.setRight(add(h.getRight(), key, value));
         else if (cmp == 0) h.getData().setValue(value);
 
-        if(h==root) h.setRed(false);
         if(ColorNode.isRed(h.getRight()) && !ColorNode.isRed(h.getLeft())) h = rotateLeft(h);
         if(ColorNode.isRed(h.getLeft()) && ColorNode.isRed(h.getLeft().getLeft())) h = rotateRigth(h);
         if(ColorNode.isRed(h.getLeft()) && ColorNode.isRed(h.getRight())) flipColors(h);
