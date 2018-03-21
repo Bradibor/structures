@@ -1,9 +1,10 @@
 package TaskTwo;
 
 public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
+    private ColorNode cRoot;
 
     public RedBlackTree() {
-
+        cRoot = (ColorNode) super.root;
     }
 
     private ColorNode rotateLeft(ColorNode h){
@@ -13,7 +14,6 @@ public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
         x.setLeft(h);
         x.setRed(ColorNode.isRed(h));
         h.setRed(true);
-        if(ColorNode.isRed((ColorNode)root) ) throw new IllegalStateException("Root RED");
         return x;
     }
 
@@ -24,7 +24,6 @@ public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
         x.setRight(h);
         x.setRed(ColorNode.isRed(h));
         h.setRed(true);
-        if(ColorNode.isRed((ColorNode)root) ) throw new IllegalStateException("Root RED");
         return x;
     }
 
@@ -35,13 +34,13 @@ public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
         h.setRed(true);
         h.getRight().setRed(false);
         h.getLeft().setRed(false);
-        if(ColorNode.isRed((ColorNode)root) ) throw new IllegalStateException("Root RED");
     }
 
     @Override
     public void add(K key, V value) {
         if(root == null) root = new ColorNode<K,V>(key, value, false);
         else root = this.add((ColorNode)root, key, value);
+        ((ColorNode)root).setRed(false);
     }
 
     private ColorNode add(ColorNode h, K key, V value){

@@ -32,17 +32,19 @@ public class Test {
         List<Map.Entry<String, Double>> list = new ArrayList<>(tree.entrySet());
 
 
-        try{
-            for(int i = 0; i < 10000; i++){
+
+            for(int i = 0; i < 10; i++){
                 BinaryTree<String, Double> myTree = new RedBlackTree<>();
+                try{
                 list.forEach((Map.Entry<String, Double> e)->{
                     myTree.add(e.getKey(), e.getValue());
-                   // myTree.toGraph(System.out);
                     Collections.shuffle(list);
                 });
+                myTree.toGraph(System.out);
+                }catch (IllegalStateException e){
+                    e.printStackTrace();
+                    continue;
             }
-        }catch (IllegalStateException e){
-            e.printStackTrace();
         }
     }
 }
