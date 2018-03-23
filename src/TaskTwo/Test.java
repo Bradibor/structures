@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        Map<String, Double> tree  = new LinkedHashMap<>();
+        Map<String, Double> tree = new LinkedHashMap<>();
         tree.put("Amazona", 1d);
         tree.put("Brah", 2d);
         tree.put("Gucci", 3d);
@@ -31,20 +31,19 @@ public class Test {
 
         List<Map.Entry<String, Double>> list = new ArrayList<>(tree.entrySet());
 
-
-
-            for(int i = 0; i < 10; i++){
-                BinaryTree<String, Double> myTree = new RedBlackTree<>();
-                try{
-                list.forEach((Map.Entry<String, Double> e)->{
-                    myTree.add(e.getKey(), e.getValue());
-                    Collections.shuffle(list);
+        for (int i = 0; i < 10; i++) {
+            Collections.shuffle(list);
+            BinaryTree<String, Double> myTree2 = new RedBlackTree<>();
+            try {
+                list.forEach((Map.Entry<String, Double> e) -> {
+                    myTree2.add(e.getKey(), e.getValue());
                 });
-                myTree.toGraph(System.out);
-                }catch (IllegalStateException e){
-                    e.printStackTrace();
-                    continue;
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+                continue;
             }
+            //System.out.println(myTree.toDot());
+
         }
     }
 }
