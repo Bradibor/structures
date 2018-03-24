@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class Node<K, V> {
     private Data<K,V> data;
-    private Node left;
-    private Node right;
+    public Node left;
+    public Node right;
 
     public Node(K key, V value) {
-        this.data = new Data(key, value);
+        this.data = new Data<K, V>(key, value);
     }
 
     public Node getLeft(){
@@ -29,7 +29,7 @@ public class Node<K, V> {
     }
 
     public Data<K, V> getData(){
-        return this.data;
+        return data;
     }
 
     protected void printHook(StringBuilder sb){
@@ -45,7 +45,7 @@ public class Node<K, V> {
                 '}';
     }
 
-    public String toString(StringBuilder sb) {
+    public void toDot(StringBuilder sb) {
         Random rnd = new Random();
         sb.append("\"" + data.getKey() + "\" -> " );
         if(left != null) sb.append("\"" + left.data.getKey() + "\";\n");
@@ -60,6 +60,5 @@ public class Node<K, V> {
             sb.append(nullId+";\n"+nullId+"[label=\"null\"]\n");
         }
         printHook(sb);
-        return sb.toString();
     }
 }

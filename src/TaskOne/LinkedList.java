@@ -146,7 +146,7 @@ public class LinkedList<K extends Comparable, V> {
         Item temp = current;
         current = null;
         while(hasNext()){
-            if(next().getData().getKey().equals(key)) return (V) current.getData().getValue();
+            if(next().getData().getKey().equals(key)) return current.getData().getValue();
         }
         current = temp;
         throw new IllegalArgumentException("Key '" + key + " ' not found");
