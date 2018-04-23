@@ -33,17 +33,20 @@ public class Test {
 
         for (int i = 0; i < 10; i++) {
             Collections.shuffle(list);
-            BinaryTree<String, Double> myTree2 = new RedBlackTree<>();
-            try {
-                list.forEach((Map.Entry<String, Double> e) -> {
-                    myTree2.add(e.getKey(), e.getValue());
-                });
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-                continue;
-            }
-            //System.out.println(myTree.toDot());
-
+            BinaryTree<String, Double> myTree = new RedBlackTree<>();
+            list.forEach((Map.Entry<String, Double> e) -> {
+                myTree.add(e.getKey(), e.getValue());
+            });
+            System.out.println(myTree.toDot());
         }
+
+        BinaryTree<Integer, Integer> myTree = new RedBlackTree<>();
+        myTree.add(1,1);
+        myTree.add(2,1);
+        myTree.add(3,1);
+        System.out.println(myTree.toDot());;
+        myTree.delete(2);
+        System.out.println(myTree.toDot());;
+
     }
 }

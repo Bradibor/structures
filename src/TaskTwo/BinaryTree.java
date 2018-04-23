@@ -35,7 +35,6 @@ public class BinaryTree<K extends Comparable, V> {
 
     public V get(K key){
         Node current = root;
-
         while (current != null){
             int compare = key.compareTo(current.getData().getKey());
             if(compare == 0) return (V) current.getData().getValue();

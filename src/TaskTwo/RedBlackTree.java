@@ -1,11 +1,6 @@
 package TaskTwo;
 
 public class RedBlackTree<K extends Comparable, V> extends BinaryTree<K, V> {
-    private ColorNode cRoot;
-
-    public RedBlackTree() {
-        cRoot = (ColorNode) super.root;
-    }
 
     private ColorNode rotateLeft(ColorNode h){
         if(!ColorNode.isRed(h.getRight())) throw new IllegalArgumentException("Right Node must be RED in order to left rotate");
