@@ -3,6 +3,11 @@ package TaskThree;
 public class DynamicProgramming extends MinCoinsSolver{
 
     @Override
+    protected void beforeSolve() {
+
+    }
+
+    @Override
     int minCoins(int[] coins, int amount) {
         int[] solution = new int[amount + 1];
         for (int i = 0; i < solution.length; i++) {

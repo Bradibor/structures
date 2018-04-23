@@ -1,17 +1,18 @@
 package TaskThree;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-public abstract class MinCoinsSolver {
+public abstract class MinCoinsSolver extends Thread{
 
-    protected List<Integer> coinsSolution;
+    private int[] coins;
+    private int amount;
+    protected int[] coinsSolution;
 
-    Result solve(int[] coins, int amount) {
+    protected abstract void beforeSolve();
+
+    public Result solve(int[] coins, int amount) {
+        beforeSolve();
         long startTime = System.currentTimeMillis();
-        coinsSolution = new ArrayList<>();
         try{
             int result = minCoins(coins, amount);
             return result == Integer.MAX_VALUE? new Result() : new Result(result, System.currentTimeMillis() - startTime, coinsSolution) ;
@@ -22,19 +23,31 @@ public abstract class MinCoinsSolver {
         }
     }
 
+    @Override
+    public synchronized void start() {
+        Result result = solve(coins, amount);
+        System.out.println(result);
+    }
+
+    public MinCoinsSolver setTask(int [] coins, int amount) {
+        this.coins = coins;
+        this.amount = amount;
+        return this;
+    }
+
     abstract int minCoins(int[] coins, int amount) ;
 
     class Result{
         public int result;
         public long time;
         public boolean solved;
-        public List<Integer> coinsSolution;
+        public int[] coinsSolution;
 
-        Result(int result, long time, List<Integer> list){
+        Result(int result, long time, int[] coinsSolution){
             this.result = result;
             this.time = time;
             this.solved = true;
-            this.coinsSolution = list;
+            this.coinsSolution = coinsSolution;
         }
 
         Result(){
@@ -45,7 +58,7 @@ public abstract class MinCoinsSolver {
         public String toString (){
             if(solved)
                 return "Result: " + result + "\n" +
-                        "With Coins: " + coinsSolution + "\n" +
+                        "With Coins: " + Arrays.toString(coinsSolution) + "\n" +
                         "Time: " + time + "\n";
             else return "No solution";
         }
