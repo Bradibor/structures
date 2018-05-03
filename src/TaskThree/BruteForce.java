@@ -15,7 +15,7 @@ public class BruteForce extends MinCoinsSolver {
     @Override
     int minCoins(int[] coins, int amount) {
         if(Thread.currentThread().isInterrupted()) {
-            return -1;
+            return -2;
         }
         if (amount == 0) {
             if (coinsStack.size() < coinsSolutionSize) {

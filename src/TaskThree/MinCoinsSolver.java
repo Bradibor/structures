@@ -26,16 +26,20 @@ public abstract class MinCoinsSolver implements Callable {
         }
         long time = System.currentTimeMillis() - startTime;
         if(res == Integer.MAX_VALUE) {
-            result.time = time;
+            result.result = 0;
             result.solved = false;
         }
-        if(res == 0) result.time = time;
+        else if(res == -1) {
+            result.result = -1;
+            result.solved = false;
+        }
         else {
             result.result = res;
             result.time = time;
             result.solved = true;
             result.coinsSolution = coinsSolution;
         }
+        result.time = time;
         result.coins = coins;
         result.amount = amount;
         return result;
@@ -80,12 +84,11 @@ public abstract class MinCoinsSolver implements Callable {
 
         @Override
         public String toString() {
-            StringBuilder sb = new StringBuilder("For coins: "+Arrays.toString(coins)+"\nAmount: " + amount + "\n");
+            StringBuilder sb = new StringBuilder("For coins: "+Arrays.toString(coins)+"\nAmount: " + amount + "\nTime: " + time + "\n");
             if (solved)
                 sb.append("Result: " + result + "\n" +
-                        "With Coins: " + Arrays.toString(coinsSolution) + "\n" +
-                        "Time: " + time + "\n");
-            else if (time == 0)
+                        "With Coins: " + Arrays.toString(coinsSolution) + "\n");
+            else if (result == -1)
                 sb.append("Too long to solve\n");
             else sb.append("No solution\n");
             return sb.toString();

@@ -25,29 +25,19 @@ public class Test {
             int[] coins = generateCoins();
             int amount = generateAmount();
             Future<MinCoinsSolver.Result> future = bruteExecutor.submit(new BruteForce().setTask(coins, amount));
-            //future.get();
             solutionList.add(future);
         }
-        while(System.currentTimeMillis() - startTime < maxWaitTime){
-
+        while (!solutionList.stream().allMatch(Future::isDone)) {
+            if(System.currentTimeMillis() - startTime > maxWaitTime) {
+                solutionList.forEach(future -> {
+                    if (!future.isDone())
+                        future.cancel(true);
+                });
+            };
         }
-        solutionList.forEach(future->{
-            System.out.println("Time out");
-            if(!future.isDone()) future.cancel(true);
-        });
+        System.out.println("Time out");
 
-//        solutionList.stream().map((future)->{
-//            MinCoinsSolver.Result result = null;
-//            try {
-//                result = future.get();
-//                System.out.println(result);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            }
-//            return result;
-//        });
+        return;
 
     }
 
