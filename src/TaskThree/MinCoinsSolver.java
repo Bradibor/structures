@@ -5,8 +5,8 @@ import java.util.concurrent.Callable;
 
 public abstract class MinCoinsSolver implements Callable {
 
-    private int[] coins;
-    private int amount;
+    protected int[] coins;
+    protected int amount;
     protected int[] coinsSolution;
 
     protected abstract void beforeSolve();

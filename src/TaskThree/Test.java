@@ -9,7 +9,7 @@ import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
 public class Test {
-    static int coinsArraySize = 20;
+    static int coinsArraySize = 3;
     static int maxAmount = 100;
     static long maxWaitTime = 5000;
 
