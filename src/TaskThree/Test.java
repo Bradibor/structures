@@ -18,13 +18,20 @@ public class Test {
         MinCoinsSolver dynamic = new DynamicProgramming();
 
         ExecutorService bruteExecutor = Executors.newFixedThreadPool(10);
+        ExecutorService dynamicExecutor = Executors.newFixedThreadPool(10);
 
         List<Future<MinCoinsSolver.Result>> solutionList = new ArrayList<>();
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 20; i++) {
+//        for (int i = 0; i < 10; i++) {
+//            int[] coins = generateCoins();
+//            int amount = generateAmount();
+//            Future<MinCoinsSolver.Result> future = bruteExecutor.submit(new BruteForce().setTask(coins, amount));
+//            solutionList.add(future);
+//        }
+        for (int i = 0; i < 10; i++) {
             int[] coins = generateCoins();
             int amount = generateAmount();
-            Future<MinCoinsSolver.Result> future = bruteExecutor.submit(new BruteForce().setTask(coins, amount));
+            Future<MinCoinsSolver.Result> future = dynamicExecutor.submit(new DynamicProgramming().setTask(coins, amount));
             solutionList.add(future);
         }
         while (!solutionList.stream().allMatch(Future::isDone)) {
@@ -35,9 +42,8 @@ public class Test {
                 });
             };
         }
-        System.out.println("Time out");
 
-        return;
+
 
     }
 
